@@ -4,21 +4,28 @@ from django.db import models
 # Create your models here.
 
 
-class Image(models.Model):
-    image = models.ImageField()
-
-
 class Product(models.Model):
     price = models.FloatField()
     manufacturer = models.CharField(max_length=100)
-    id_image = models.ForeignKey(Image, on_delete=models.CASCADE)
     category = models.CharField(max_length=50)
+    Subcategory = models.CharField(max_length=100, default=None)
     name = models.CharField(max_length=100)
     rating = models.FloatField()
     description = models.TextField()
-    
+
     def __str__(self):
         return self.name
+
+
+class Image(models.Model):
+    id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image_product = models.ImageField(null=True, blank=True,
+                              upload_to='images/', verbose_name='Изображение')
+    main_image = models.BooleanField(default=False)
+
+    # def __str__(self):
+    #     return selt.id_product
+
 
 class Feedback(models.Model):
     rating = models.SmallIntegerField()
@@ -43,3 +50,6 @@ class Purchase(models.Model):
         on_delete=models.CASCADE
     )
     data_purchase = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{id_user}  {data_purchase}"

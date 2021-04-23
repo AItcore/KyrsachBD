@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='product-list'>
+  {% for product in product_list %}
+    {% if product.category == choose %}
+      <div class='product-item'>
+        {% for image in image_list %}
+          {% if image.id_product == product and image.main_image %}
+            <img src='{{image.image_product.url}}'>
+            <a>{{product.name}}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endblock content %}
