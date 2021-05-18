@@ -17,6 +17,25 @@
   margin: 5px;
 }
 
+.loginForm {
+  margin-top: 5%;
+}
+
+.login-table {
+  border-collapse: separate;
+  margin-bottom: 5px;
+  border-spacing: 10px 10px;
+}
+
+.login-input {
+  border: 1px solid #000;
+}
+
+.regForm {
+  margin-top: 5%;
+  align-items: center;
+}
+
 .nav--link {
   margin: 10px;
 }

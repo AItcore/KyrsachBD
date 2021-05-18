@@ -21,7 +21,7 @@
     <div class="header-container">
       <a class="font-weight-normal" href="{% url 'home' %}">Название магазина</a>
       <nav class="nav--links">
-        <a class="nav--link" href="#">Главная страница</a>
+        <a class="nav--link" href="{% url 'home' %}">Главная страница</a>
         <a class="nav--link" href="#">Поддержка</a>
           {% if user.is_authenticated %} 
           <a class="nav--link" href="#">Личный кабинет</a>
@@ -36,4 +36,7 @@
   {% block MainBlock %}
     
   {% endblock MainBlock %}
+  <footer class="footer-container">
+    <a>Copyright &copy; 2021 Karpeev Kirill</a>
+  </footer>
 </html>
