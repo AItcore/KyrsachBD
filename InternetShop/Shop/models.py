@@ -23,8 +23,8 @@ class Image(models.Model):
                               upload_to='images/', verbose_name='Изображение')
     main_image = models.BooleanField(default=False)
 
-    # def __str__(self):
-    #     return selt.id_product
+    def __str__(self):
+        return str(self.id)
 
 
 class Feedback(models.Model):

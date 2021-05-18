@@ -1,5 +1,27 @@
 {% extends "base.html" %}
 
-{% block content %}
-  
-{% endblock content %}
+{% block MainBlock %}
+<div class='content'>
+    <nav class="nav--catalog">
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Крупногабаритная техника' '0' %}">Крупногабаритная техника</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Встраиваемая техника' '0' %}">Встраиваемая техника</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уборка' '0' %}">Уборка</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уход за одеждой, пошив'  '0' %}">Уход за одеждой, пошив</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Климатическая техника' '0' %}">Климатическая техника</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Приготовление пищи' '0' %}">Приготовление пищи</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Приготовление кофе и чая' '0' %}">Приготовление кофе и чая</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Подготовка и обработка продуктов' '0' %}">Подготовка и обработка продуктов</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уход за волосами и телом' '0' %}">Уход за волосами и телом</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Техника для здоровья' '0' %}">Техника для здоровья</a>
+      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Аксессуары и сопуствующие товары' '0' %}">Аксессуары и сопуствующие товары</a>
+    </nav>
+    <body>
+      {% block content %}
+
+      {% endblock content %}
+    </body>
+    <footer class="footer-container">
+      <a>Copyright &copy; 2021 Karpeev Kirill</a>
+    </footer>
+</div>
+{% endblock MainBlock %}

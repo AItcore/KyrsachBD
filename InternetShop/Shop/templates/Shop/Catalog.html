@@ -1,18 +1,26 @@
-{% extends "base.html" %}
+{% extends "Shop/home.html" %}
 
 {% block content %}
-<div class='product-list'>
-  {% for product in product_list %}
-    {% if product.category == choose %}
-      <div class='product-item'>
-        {% for image in image_list %}
-          {% if image.id_product == product and image.main_image %}
-            <img src='{{image.image_product.url}}'>
-            <a>{{product.name}}</a>
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endfor %}
+<div class='content-products'>
+  <!-- Может быть реализую фильтр продуктов -->
+  <div class='product-filter'>
+
+  </div>
+  <div class='product-list'>
+    {% for product in product_list %}
+        <div class='product-item'>
+          {% for img in image_list %}
+            {% if img.id_product == product and img.main_image %}
+              <img style='max-height: 150px; max-width: 60px;' src='{{img.image_product.url}}'>
+              <div class='product-info'>
+                <a class='product-title' href="{% url 'ProductInfo' product.id %}">{{product.name}}</a>
+                <p class='product-price'>{{product.price}} руб.</p>
+                <p class='product-description'>{{product.description}}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock content %}

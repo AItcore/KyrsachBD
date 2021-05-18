@@ -12,7 +12,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Internet Shop</title>
+    <title>{% block title %}
+      Internet Shop
+    {% endblock title %}</title>
     <link href="{% static 'main.css' %}" rel="stylesheet" />
   </head>
   <header>
@@ -22,35 +24,16 @@
         <a class="nav--link" href="#">Главная страница</a>
         <a class="nav--link" href="#">Поддержка</a>
           {% if user.is_authenticated %} 
-          <a class="nav--link" href="#">Личный кабинет</a> 
+          <a class="nav--link" href="#">Личный кабинет</a>
+          <a class="nav--link" href="{% url 'logout' %}">Выйти</a>
           {% else %} 
-          <a class="nav--link" href="#">Регистрация</a>
+          <a class="nav--link" href="{% url 'register'%}">Регистрация</a>
+          <a class="button btn-outline-primary" href="{% url 'login' %}">Войти</a>
           {% endif %}
-        <a class="button btn-outline-primary" href="#">Войти</a>
       </nav>
     </div>
   </header>
-  <div class="content">
-    <nav class="nav--catalog">
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Крупногабаритная техника' %}">Крупногабаритная техника</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Встраиваемая техника' %}">Встраиваемая техника</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уборка' %}">Уборка</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уход за одеждой, пошив' %}">Уход за одеждой, пошив</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Климатическая техника' %}">Климатическая техника</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Приготовление пищи' %}">Приготовление пищи</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Приготовление кофе и чая' %}">Приготовление кофе и чая</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Подготовка и обработка продуктов' %}">Подготовка и обработка продуктов</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уход за волосами и телом' %}">Уход за волосами и телом</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Техника для здоровья' %}">Техника для здоровья</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Аксессуары и сопуствующие товары' %}">Аксессуары и сопуствующие товары</a>
-    </nav>
-    <body>
-      {% block content %}
-
-      {% endblock content %}
-    </body>
-    <footer class="footer-container">
-      <a>Copyright &copy; 2021 Karpeev Kirill</a>
-    </footer>
-  </div>
+  {% block MainBlock %}
+    
+  {% endblock MainBlock %}
 </html>

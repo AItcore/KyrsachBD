@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block MainBlock %}
+<form method="post" action="{% url 'login' %}">
+    {{ form.as_table }}
+    <table>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input type="submit" value="login"></td>
+        </tr>
+    </table>
+    <input type='hidden' name='text' value="{{next}}">
+    {% csrf_token %}
+</form>  
+{% endblock MainBlock %}

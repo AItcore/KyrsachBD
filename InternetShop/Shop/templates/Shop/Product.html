@@ -1,0 +1,14 @@
+{% extends "Shop/home.html" %}
+{% block title %}
+  {{product.name}}
+{% endblock title %}
+{% block content %}
+  <div class="product-block">
+    <h1>{{product.name}}</h1>
+        {% for img in image_list %}
+            {% if img.main_image %}
+                <img class="product-img" src="{{img.image_product.url}}">
+            {% endif %}
+        {% endfor %}
+  </div>
+{% endblock content %}

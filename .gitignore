@@ -1,0 +1,14 @@
+.vscode
+bin
+include
+lib
+lib64
+share
+pyvenv.cfg
+*/*.jpeg
+*/*.jpg
+*/*/__pycache__
+*/*/migrations
+*/db.sqlite3
+InternetShop/InternetShop/my.conf
+InternetShop/media
