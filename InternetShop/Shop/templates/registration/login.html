@@ -1,20 +1,20 @@
 {% extends "base.html" %}
+
 {% block MainBlock %}
 <div class="loginForm" align="center">
     <h1>Авторизация</h1>
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <table class="login-table">
+            {% for f in form %}
             <tr class="login-input">
-                <td>{{ form.username.label_tag}}</td>
-                <td>{{ form.username }}</td>
+                <td>{{f.label}}</td>
+                <td>{{f}}</td>
+                <td>{{f.errors}}</td>
             </tr>
-            <tr class="login-input">
-                <td>{{form.password.label_tag}}</td>
-                <td>{{form.password}}</td>
-            </tr>
+            {% endfor %}
         </table>
-        <input type='submit' value="Login">
+        <input type='submit' value="Войти">
         <input type='hidden' name='next' value="{{next}}">
     </form>  
 </div>

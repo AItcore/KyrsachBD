@@ -8,8 +8,14 @@ from .models import *
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'Shop/home.html')
+def index(request, page=0):
+    page = int(page)
+    context = {
+        'product_list': Product.objects.all()[page*10:page*10+10],
+        'image_list' : Image.objects.all(),
+        'page' : page
+    }
+    return render(request, 'Shop/home.html', context=context)
 
 def CatalogChoose(request, choose, page=0):
     page = int(page)
@@ -35,3 +41,7 @@ class Register(CreateView):
     def form_valid(self, form) :
         form.save()
         return HttpResponseRedirect(self.success_url)
+
+class Login(CreateView):
+    template_name = 'registration/login.html'
+    # form_class = 
