@@ -53,8 +53,13 @@ a.button:hover {
   color: #fff;
 }
 
-.nav--catalog {
+.search-form {
   margin-top: 7%;
+  display: flex;
+  justify-content: center;
+}
+
+.nav--catalog {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -125,4 +130,13 @@ a.button:hover {
 .product-block {
   margin-top: 10px;
   border: 1px solid #8ab9e9;
+}
+
+.page-choose-block{
+  font-size: 20px;
+}
+
+.page-choose {
+  text-decoration: none;
+  font-size: 24px;
 }

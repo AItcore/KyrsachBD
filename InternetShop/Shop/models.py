@@ -34,7 +34,7 @@ class Feedback(models.Model):
         on_delete=models.CASCADE
     )
     text = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True, editable=False)
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -49,7 +49,7 @@ class Purchase(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
-    data_purchase = models.DateTimeField(auto_now_add=True)
+    data_purchase = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __str__(self):
-        return f"{id_user}  {data_purchase}"
+        return f"{self.id_user}  {self.data_purchase}"

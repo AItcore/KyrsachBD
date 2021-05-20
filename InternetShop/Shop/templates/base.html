@@ -19,9 +19,9 @@
   </head>
   <header>
     <div class="header-container">
-      <a class="font-weight-normal" href="{% url 'home' 0 %}">Название магазина</a>
+      <a class="font-weight-normal" href="{% url 'home' %}">Название магазина</a>
       <nav class="nav--links">
-        <a class="nav--link" href="{% url 'home' 0 %}">Главная страница</a>
+        <a class="nav--link" href="{% url 'home' %}">Главная страница</a>
         <a class="nav--link" href="#">Поддержка</a>
           {% if user.is_authenticated %} 
           <a class="nav--link" href="#">Привет, {{user.username}}</a>

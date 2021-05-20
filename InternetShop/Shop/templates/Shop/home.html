@@ -2,51 +2,73 @@
 
 {% block MainBlock %}
 <div class='content'>
-    <nav class="nav--catalog">
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Крупногабаритная техника' '0' %}">Крупногабаритная техника</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Встраиваемая техника' '0' %}">Встраиваемая техника</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уборка' '0' %}">Уборка</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уход за одеждой, пошив'  '0' %}">Уход за одеждой, пошив</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Климатическая техника' '0' %}">Климатическая техника</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Приготовление пищи' '0' %}">Приготовление пищи</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Приготовление кофе и чая' '0' %}">Приготовление кофе и чая</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Подготовка и обработка продуктов' '0' %}">Подготовка и обработка продуктов</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уход за волосами и телом' '0' %}">Уход за волосами и телом</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Техника для здоровья' '0' %}">Техника для здоровья</a>
-      <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Аксессуары и сопуствующие товары' '0' %}">Аксессуары и сопуствующие товары</a>
-    </nav>
-    <body>
-      {% block content %}
-      <div class='content-products'>
-        <!-- Может быть реализую фильтр продуктов -->
-        <div class='product-filter'>
-      
-        </div>
-        <div class='product-list'>
-          {% for product in product_list %}
-              <div class='product-item'>
-                {% for img in image_list %}
-                  {% if img.id_product == product and img.main_image %}
-                    <img style='max-height: 150px; max-width: 60px;' src='{{img.image_product.url}}'>
-                    <div class='product-info'>
-                      <a class='product-title' href="{% url 'ProductInfo' product.id %}">{{product.name}}</a>
-                      <p class='product-price'>{{product.price}} руб.</p>
-                      <p class='product-description'>{{product.description}}</p>
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endblock content %}
-      <div>
-        {% if page != 0 %}
-        <a href="{% url 'home' {{page - 1}} %}">[eq</a>
-        {% endif %}
-        <a href="{% url 'home' {{page+1}} %}">qe[</a>
-      </div>
-    </body>
+  {% block search %}  
+  <form class="search-form" action="" method="POST" align="center">
+    {% csrf_token %}
+    {{form.as_table}}
+    <input type='submit' value="Поиск">
+  </form>
+  {% endblock search %}
+  <nav class="nav--catalog">
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Крупногабаритная техника' 1 %}">Крупногабаритная техника</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Встраиваемая техника' 1 %}">Встраиваемая техника</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уборка' 1 %}">Уборка</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уход за одеждой, пошив'  1 %}">Уход за одеждой, пошив</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Климатическая техника' 1 %}">Климатическая техника</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Приготовление пищи' 1 %}">Приготовление пищи</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Приготовление кофе и чая' 1 %}">Приготовление кофе и чая</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Подготовка и обработка продуктов' 1 %}">Подготовка и обработка продуктов</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Уход за волосами и телом' 1 %}">Уход за волосами и телом</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Техника для здоровья' 1 %}">Техника для здоровья</a>
+    <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Аксессуары и сопуствующие товары' 1 %}">Аксессуары и сопуствующие товары</a>
+  </nav>
+  <body>
     
+    {% block content %}
+    <div class='content-products'>
+      <!-- Может быть реализую фильтр продуктов -->
+      <div class='product-filter'>
+    
+      </div>
+      <div class='product-list'>
+        {% for product in product_list %}
+            <div class='product-item'>
+              {% for img in image_list %}
+                {% if img.id_product == product and img.main_image %}
+                  <img style='max-height: 150px; max-width: 60px;' src='{{img.image_product.url}}'>
+                  <div class='product-info'>
+                    <a class='product-title' href="{% url 'ProductInfo' product.id %}">{{product.name}}</a>
+                    <p class='product-price'>{{product.price}} руб.</p>
+                    <p class='product-description'>{{product.description}}</p>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock content %}
+    <div class="page-choose-block" align="center">
+      {% if prevPage >= 0 %}
+      <a class="active-list page-choose" href="{% url 'home' prevPage %}"><</a>
+      {% else %}
+      <a class="deactive-list page-choose"><</a>
+      {% endif %}
+      {% for pg in listPage %}
+        {% if pg != '...' %}
+          <a class='page-choose' href="{% url 'home' pg %}">{{pg}}</a>
+        {% else %}
+          <a class='page-choose'>{{pg}}</a>
+        {% endif %}
+        
+      {% endfor %}
+      {% if nextPage <= maxPage %}
+      <a class="active-list page-choose" href="{% url 'home' nextPage %}">></a>
+      {% else %}
+      <a class="deactive-list page-choose">></a>
+      {% endif %}
+      
+    </div>
+  </body>
 </div>
 {% endblock MainBlock %}

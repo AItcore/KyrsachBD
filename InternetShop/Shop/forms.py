@@ -18,3 +18,6 @@ class RegisterUserForm(UserCreationForm):
         }
 
 # class LoginUserForm
+
+class SearchForm(forms.Form):
+    filter = forms.CharField(label="Поиск", widget=forms.TextInput(attrs={'class' : 'form-input'}))

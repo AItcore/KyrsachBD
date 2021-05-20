@@ -1,4 +1,4 @@
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, SearchForm
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
@@ -8,21 +8,56 @@ from .models import *
 
 # Create your views here.
 
-def index(request, page=0):
+def index(request, page=1, filter='' ):
     page = int(page)
+    maxPage = int(len(Product.objects.all())/10)
+    listPage = {}
+    if page > 3 and page-3 < maxPage:
+        listPage = {1,2,'...',page-2,page-1,page,page+1,page+2, '...', maxPage-1,maxPage}
+    else:
+        listPage = {1,2,3,'...',maxPage-1,maxPage}
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            search = form.cleaned_data['filter']
+            return HttpResponse(f'page=1/search={search}')
+    else:
+        form = SearchForm()
     context = {
-        'product_list': Product.objects.all()[page*10:page*10+10],
+        'product_list': Product.objects.all().filter(name__icontains=filter)[(page-1)*10:(page-1)*10+10],
         'image_list' : Image.objects.all(),
-        'page' : page
+        'prevPage' : page-1,
+        'nextPage' : page+1,
+        'maxPage' : maxPage,
+        'listPage' : listPage,
+        'form' : form
     }
     return render(request, 'Shop/home.html', context=context)
 
-def CatalogChoose(request, choose, page=0):
+def CatalogChoose(request, choose, page=1):
     page = int(page)
+    maxPage = int(len(Product.objects.all())/10)
+    listPage = {}
+    if page > 3 and page-3 < maxPage:
+        listPage = {1,2,'...',page-2,page-1,page,page+1,page+2, '...', maxPage-1,maxPage}
+    else:
+        listPage = {1,2,3,'...',maxPage-1,maxPage}
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            search = form.cleaned_data['filter']
+            return HttpResponseRedirect(f'page=1/search={search}')
+    else:
+        form = SearchForm()
     context = {
-        'product_list': Product.objects.filter(category=choose)[page*10:page*10+10],
+        'product_list': Product.objects.filter(category=choose)[(page-1)*10:(page-1)*10+10],
         'image_list' : Image.objects.all(),
-        'choose' : choose  
+        'choose' : choose,
+        'prevPage' : page-1,
+        'nextPage' : page+1,
+        'maxPage' : maxPage,
+        'listPage' : listPage,
+        'form' : form 
     }
     return render(request, 'Shop/Catalog.html', context=context)
 
@@ -42,6 +77,13 @@ class Register(CreateView):
         form.save()
         return HttpResponseRedirect(self.success_url)
 
-class Login(CreateView):
-    template_name = 'registration/login.html'
-    # form_class = 
+class searchForm(CreateView):
+    def getSearchResult(request):
+        if request.method == 'POST':
+            form = SearchForm(request.POST)
+            if form.is_valid():
+                search = form.cleaned_data['search']
+                return HttpResponseRedirect(search)
+        else:
+            form = SearchForm()
+        return render(request, 'Shop/home.html', {'form': form})
