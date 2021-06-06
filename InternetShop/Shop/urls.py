@@ -12,5 +12,5 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path(r'<choose>Page=<page>/', views.CatalogChoose, name='CatalogChoose'),
     path(r'product/<id_product>/', views.ProductInfo, name='ProductInfo'),
-    path('<page>/', views.index, name='home'),
+    path('page=<page>/', views.index, name='home'),
 ]

@@ -3,7 +3,7 @@
 {% block MainBlock %}
 <div class='content'>
   {% block search %}  
-  <form class="search-form" action="" method="POST" align="center">
+  <form class="search-form" action="{%url 'home'%}" method="POST" align="center">
     {% csrf_token %}
     {{form.as_table}}
     <input type='submit' value="Поиск">
@@ -27,9 +27,9 @@
     {% block content %}
     <div class='content-products'>
       <!-- Может быть реализую фильтр продуктов -->
-      <div class='product-filter'>
+      <!-- <div class='product-filter'>
     
-      </div>
+      </div> -->
       <div class='product-list'>
         {% for product in product_list %}
             <div class='product-item'>
@@ -48,27 +48,51 @@
       </div>
     </div>
     {% endblock content %}
+    {% block PageBlock %}
     <div class="page-choose-block" align="center">
-      {% if prevPage >= 0 %}
-      <a class="active-list page-choose" href="{% url 'home' prevPage %}"><</a>
-      {% else %}
-      <a class="deactive-list page-choose"><</a>
-      {% endif %}
-      {% for pg in listPage %}
-        {% if pg != '...' %}
-          <a class='page-choose' href="{% url 'home' pg %}">{{pg}}</a>
+      {% if ft != '' %}
+        {% if prevPage >= 0 %}
+          <a class="active-list page-choose" href="{% url 'home' prevPage %}"><</a>
         {% else %}
-          <a class='page-choose'>{{pg}}</a>
+          <a class="deactive-list page-choose"><</a>
         {% endif %}
-        
-      {% endfor %}
-      {% if nextPage <= maxPage %}
-      <a class="active-list page-choose" href="{% url 'home' nextPage %}">></a>
+          {% for pg in listPage %}
+            {% if pg != '...' %}
+              <a class='page-choose' href="{% url 'home' pg %}">{{pg}}</a>
+            {% else %}
+              <a class='page-choose'>{{pg}}</a>
+            {% endif %}
+            
+          {% endfor %}
+        {% if nextPage <= maxPage %}
+          <a class="active-list page-choose" href="{% url 'home' nextPage %}">></a>
+        {% else %}
+          <a class="deactive-list page-choose">></a>
+        {% endif %}
       {% else %}
-      <a class="deactive-list page-choose">></a>
+        {% if prevPage >= 0 %}
+          <a class="active-list page-choose" href="{% url 'home' prevPage %}"><</a>
+        {% else %}
+          <a class="deactive-list page-choose"><</a>
+        {% endif %}
+          {% for pg in listPage %}
+            {% if pg != '...' %}
+              <a class='page-choose' href="{% url 'home' pg ft %}">{{pg}}</a>
+            {% else %}
+              <a class='page-choose'>{{pg}}</a>
+            {% endif %}
+            
+          {% endfor %}
+        {% if nextPage <= maxPage %}
+          <a class="active-list page-choose" href="{% url 'home' nextPage ft %}">></a>
+        {% else %}
+          <a class="deactive-list page-choose">></a>
+        {% endif %}
       {% endif %}
       
     </div>
+    {% endblock PageBlock %}
+
   </body>
 </div>
 {% endblock MainBlock %}

@@ -3,6 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
+class CommentForm(forms.Form):
+    comment = forms.CharField(
+        label="",
+        widget=forms.Textarea
+    )
+
 class RegisterUserForm(UserCreationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class':'form-input'}))
@@ -20,4 +26,4 @@ class RegisterUserForm(UserCreationForm):
 # class LoginUserForm
 
 class SearchForm(forms.Form):
-    filter = forms.CharField(label="Поиск", widget=forms.TextInput(attrs={'class' : 'form-input'}))
+    searchLine = forms.CharField(label="Поиск", widget=forms.TextInput(attrs={'class' : 'form-input'}))

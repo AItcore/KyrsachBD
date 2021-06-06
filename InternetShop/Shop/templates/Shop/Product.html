@@ -3,12 +3,56 @@
   {{product.name}}
 {% endblock title %}
 {% block content %}
-  <div class="product-block">
-    <h1>{{product.name}}</h1>
-        {% for img in image_list %}
-            {% if img.main_image %}
-                <img class="product-img" src="{{img.image_product.url}}">
-            {% endif %}
-        {% endfor %}
+<div class='product-block' >
+  <div class='block-name' >
+    <h1 class='product-name'>{{product.name}}</h1>
+    <hr class='name-line' width="100%">
   </div>
+  <div class="product-layer">
+    {% for img in image_list %}
+      {% if img.main_image %}
+      <div class='block-product-img'>
+        <img class="product-img" src="{{img.image_product.url}}">
+      </div>
+      {% endif %}
+    {% endfor %}
+    <div class='product-info'>
+      <p class='info'>Цена: {{product.price}} руб.</p>
+      <p class="info info-manafacturer">Производитель: {{product.manufacturer}}</p>
+      <p class='info'>{{product.description}}</p>
+    </div>
+  </div>
+  <div class='block-feedback'>
+    <h1>Отзывы</h1>
+    <div>
+      {% if user.is_authenticated %}
+      <form action="" method="post">
+        {% csrf_token %}
+        {{commentForm.as_table}}
+        <br>
+        <input class='button-feedback' type='submit' value="Отправить">
+      </form>
+      {% else %}
+        <p>Только авторизованные пользователи могут оставлять отзывы</p>
+      {% endif %}
+    </div>
+    {% if feedback.count == 0 %}
+      <h3>Отзывов нету</h3>
+    {% else %}
+      {% for fb in feedback %}
+        <div class='feedback-block'>
+          <div class='feedback-other'>
+            <p class='feedback-user'>{{fb.id_user}}</p>
+            <!-- <p>Оценка: {{fb.rating}}</p> -->
+            <p class='feedback-date'>{{fb.date}}</p>
+          </div>
+          <p class='feedback-text'>{{fb.text}}</p>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
 {% endblock content %}
+{% block PageBlock %}
+
+{% endblock PageBlock %}
