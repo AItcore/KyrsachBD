@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class CommentForm(forms.Form):
     comment = forms.CharField(
         label="",
-        widget=forms.Textarea
+        widget=forms.Textarea({'cols': 60, 'rows' : 5}),
     )
 
 class RegisterUserForm(UserCreationForm):
@@ -26,4 +26,6 @@ class RegisterUserForm(UserCreationForm):
 # class LoginUserForm
 
 class SearchForm(forms.Form):
-    searchLine = forms.CharField(label="Поиск", widget=forms.TextInput(attrs={'class' : 'form-input'}))
+    searchLine = forms.CharField(label="Поиск", 
+    widget=forms.TextInput(attrs={'class' : 'form-input'}),
+    )

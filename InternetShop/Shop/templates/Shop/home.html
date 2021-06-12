@@ -2,13 +2,13 @@
 
 {% block MainBlock %}
 <div class='content'>
-  {% block search %}  
   <form class="search-form" action="{%url 'home'%}" method="POST" align="center">
+    {% block search %}  
     {% csrf_token %}
     {{form.as_table}}
     <input type='submit' value="Поиск">
+    {% endblock search %}
   </form>
-  {% endblock search %}
   <nav class="nav--catalog">
     <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Крупногабаритная техника' 1 %}">Крупногабаритная техника</a>
     <a class="nav--catalog-link" href="{% url 'CatalogChoose' 'Встраиваемая техника' 1 %}">Встраиваемая техника</a>

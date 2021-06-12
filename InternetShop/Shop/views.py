@@ -44,11 +44,15 @@ def index(request, page=1, ft=' '):
 def CatalogChoose(request, choose, page=1):
     page = int(page)
     maxPage = int(len(Product.objects.all())/10)
-    listPage = {}
-    if page > 3 and page-3 < maxPage:
-        listPage = {1,2,'...',page-2,page-1,page,page+1,page+2, '...', maxPage-1,maxPage}
+    listPage = []
+    if maxPage < 6:
+        for i in range(maxPage+1):
+            listPage.append(i+1)
     else:
-        listPage = {1,2,3,'...',maxPage-1,maxPage}
+        if page > 3 and page-3 < maxPage:
+            listPage = [1,2,'...',page-2,page-1,page,page+1,page+2, '...', maxPage-1,maxPage]
+        else:
+            listPage = [1,2,3,'...',maxPage-1,maxPage]
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():

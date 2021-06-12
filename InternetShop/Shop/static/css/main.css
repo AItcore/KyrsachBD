@@ -143,7 +143,7 @@ a.button:hover {
 }
 
 .info {
-  border: 1px solid;
+  border-bottom: 1px solid;
   padding: 10px;
   margin: 0;
 }
@@ -201,6 +201,11 @@ a.button:hover {
 .feedback-other p {
   margin: 0px;
   padding: 4px;
+}
+
+.form-input {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .feedback-text {
