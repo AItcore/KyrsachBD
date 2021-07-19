@@ -4,18 +4,46 @@ from django.shortcuts import redirect, render
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.contrib import auth
 from .models import *
 
 # Create your views here.
 
-def index(request, page=1, ft=' '):
+def clearPurchase(request):
+    purchases = Purchase.objects.filter(id_user = auth.get_user(request))
+    purchases.delete()
+    return HttpResponseRedirect('/user/')
+
+def addToCart(request, *args, **kwargs):
+    purchase = Purchase()
+    purchase.id_product = Product.objects.get(id=kwargs.get('id_product'))
+    purchase.id_user = auth.get_user(request)
+    purchase.status = False
+    purchase.save()
+    return HttpResponseRedirect('/user/')
+
+def search(request):
+    search=""
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            search = form.cleaned_data['searchLine']
+    else:
+        form = SearchForm()
+    context = {
+        'product_list': Product.objects.all().filter(name__icontains=search),
+        'image_list' : Image.objects.all(),
+        'form' : form,
+    }
+    return render(request,'Shop/Search.html', context=context)
+
+def index(request, page=1):
     page = int(page)
-    maxPage = int(len(Product.objects.all())/10)
+    maxPage = int(len(Product.objects.all())/10)+1
     listPage = []
     if maxPage < 6:
-        for i in range(maxPage+1):
+        for i in range(maxPage):
             listPage.append(i+1)
     else:
         if page > 3 and page-3 < maxPage:
@@ -30,23 +58,23 @@ def index(request, page=1, ft=' '):
     else:
         form = SearchForm()
     context = {
-        'product_list': Product.objects.all().filter(name__icontains=ft)[(page-1)*10:(page-1)*10+10],
+        'product_list': Product.objects.all()[(page-1)*10:(page-1)*10+10],
         'image_list' : Image.objects.all(),
         'prevPage' : page-1,
         'nextPage' : page+1,
         'maxPage' : maxPage,
         'listPage' : listPage,
         'form' : form,
-        'ft' : ft,
     }
+    print(maxPage)
     return render(request, 'Shop/home.html', context=context)
 
 def CatalogChoose(request, choose, page=1):
     page = int(page)
-    maxPage = int(len(Product.objects.all())/10)
+    maxPage = int(len(Product.objects.filter(category=choose))/10)+1
     listPage = []
     if maxPage < 6:
-        for i in range(maxPage+1):
+        for i in range(maxPage):
             listPage.append(i+1)
     else:
         if page > 3 and page-3 < maxPage:
@@ -72,6 +100,18 @@ def CatalogChoose(request, choose, page=1):
     }
     return render(request, 'Shop/Catalog.html', context=context)
 
+def user(request):
+    user = auth.get_user(request)
+    purchases = Purchase.objects.filter(id_user=user)
+    summa = 0
+    for purchase in purchases:
+        summa += purchase.id_product.price
+    context = {
+        'purchases' : purchases,
+        'summa' : summa
+    }
+    return render(request, 'profile/user.html', context=context)
+
 def ProductInfo(request, id_product):
     form = ''
     if request.method == 'POST':
@@ -91,10 +131,12 @@ def ProductInfo(request, id_product):
                 comment.id_product = Product.objects.get(id=id_product)
                 comment.id_user = auth.get_user(request)
                 comment.text = commentForm.cleaned_data['comment']
+                # Рейтинг не реализован
                 comment.rating = 5
                 comment.save()
         else:
             commentForm = CommentForm()
+
     context = {
         'product' : Product.objects.get(id=id_product),
         'image_list' : Image.objects.filter(id_product=id_product),

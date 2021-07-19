@@ -125,6 +125,7 @@ a.button:hover {
 }
 
 .product-list {
+  width: 100%;
   align-content: center;
 }
 
@@ -185,12 +186,17 @@ a.button:hover {
 }
 .feedback-block {
   margin: 10px;
+  margin-left: 0px;
   border: 1px solid;
   padding: 10px;
 }
 .feedback-other {
   display: inline-flex;
   border-bottom: 1px #bbbbbb solid;
+}
+
+.block-feedback {
+  margin-left: 10px;
 }
 
 .feedback-user {
@@ -210,4 +216,18 @@ a.button:hover {
 
 .feedback-text {
   font-size: 20px;
+}
+
+.profile-block {
+  margin: 10%;
+  margin-bottom: 0%;
+  border-top: 1px solid #dee2e6;
+}
+
+.user-cart {
+  width: 100%;
+}
+.cart-product {
+  border-bottom: 1px solid #000;
+  width: 100%;
 }

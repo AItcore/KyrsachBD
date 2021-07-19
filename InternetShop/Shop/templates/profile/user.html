@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Профиль
+{% endblock title %}
+
+{% block MainBlock %}
+  <div class="profile-block">
+      <h1>Профиль: {{user.username}}</h1>
+      <div class="user-cart">
+          {% if purchases.count != 0 %}
+          <h3>Корзина:</h3>
+            {% for purchase in purchases %}
+                <div class="cart-product">
+                    <a href="{% url 'ProductInfo' purchase.id_product.id %}"><p>{{purchase.id_product}}</p></a>
+                    <p>{{purchase.id_product.description}}</p>
+                    <p>{{purchase.id_product.price}}</p>
+                </div>
+            {% endfor %}
+            <h2>Всего цена: {{summa}}</h2>
+            <a href="{% url 'clearPurchase' %}"><button>Очистить корзину</button></a>
+          {% endif %}
+      </div>
+  </div>
+{% endblock MainBlock %}

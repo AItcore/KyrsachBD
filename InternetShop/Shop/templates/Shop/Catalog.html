@@ -11,7 +11,7 @@
         <div class='product-item'>
           {% for img in image_list %}
             {% if img.id_product == product and img.main_image %}
-              <img style='max-height: 150px; max-width: 60px;' src='{{img.image_product.url}}'>
+              <img style='max-height: 150px; max-width: 150px;' src='{{img.image_product.url}}'>
               <div class='product-info'>
                 <a class='product-title' href="{% url 'ProductInfo' product.id %}">{{product.name}}</a>
                 <p class='product-price'>{{product.price}} руб.</p>
@@ -24,3 +24,25 @@
   </div>
 </div>
 {% endblock content %}
+{% block PageBlock %}
+  <div class="page-choose-block" align="center">
+      {% if prevPage >= 1 %}
+        <a class="active-list page-choose" href="{% url 'CatalogChoose' choose prevPage %}"><</a>
+      {% else %}
+        <a class="deactive-list page-choose"><</a>
+      {% endif %}
+        {% for pg in listPage %}
+          {% if pg != '...' %}
+            <a class='page-choose' href="{% url 'CatalogChoose' choose pg %}">{{pg}}</a>
+          {% else %}
+            <a class='page-choose'>{{pg}}</a>
+          {% endif %}
+          
+        {% endfor %}
+      {% if nextPage <= maxPage %}
+        <a class="active-list page-choose" href="{% url 'CatalogChoose' choose nextPage %}">></a>
+      {% else %}
+        <a class="deactive-list page-choose">></a>
+      {% endif %}      
+  </div>
+{% endblock PageBlock %}

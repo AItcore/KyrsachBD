@@ -23,8 +23,6 @@ class RegisterUserForm(UserCreationForm):
             'password2' : forms.PasswordInput(attrs={'class':'form-input'}),
         }
 
-# class LoginUserForm
-
 class SearchForm(forms.Form):
     searchLine = forms.CharField(label="Поиск", 
     widget=forms.TextInput(attrs={'class' : 'form-input'}),

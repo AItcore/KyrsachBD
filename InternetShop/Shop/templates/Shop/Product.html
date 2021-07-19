@@ -25,6 +25,9 @@
       <p class='info'>Цена: {{product.price}} руб.</p>
       <p class="info info-manafacturer">Производитель: {{product.manufacturer}}</p>
       <p class='info'>{{product.description}}</p>
+      {% if user.is_authenticated %}
+        <a href="{% url 'add-to-cart' product.id %}"><button class="button">Добавить в корзину</button></a>
+      {% endif %}
     </div>
   </div>
   <div class='block-feedback'>
